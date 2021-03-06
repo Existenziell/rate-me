@@ -72,6 +72,7 @@ const Map = () => {
           onClose={() => {
             setSelectedMarker(null)
           }}
+          closeOnClick={false}
         >
           <div className="px-8 py-4 max-w-xs md:max-w-md lg:max-w-lg">
             <div className="flex justify-between items-center mb-6">
@@ -89,8 +90,8 @@ const Map = () => {
               </div>
             </div>
             <div className="text-sm bg-gray-100 p-4 rounded">
-              <p className="mb-2"><Link href={selectedMarker.properties.website}><a>Website</a></Link></p>
-              <p className="mb-2"><a href={selectedMarker.properties.phone}>Call {selectedMarker.properties.name}</a></p>
+              <p className="mb-2"><Link href={selectedMarker.properties.website}><a target="_blank">Visit Website</a></Link></p>
+              <p className="mb-2"><a href={`tel: ${selectedMarker.properties.phone}`}>Call {selectedMarker.properties.phone}</a></p>
               <p className="mb-2">Adress: {selectedMarker.properties.address}</p>
               <p className="mb-2">{selectedMarker.properties.description}</p>
             </div>
