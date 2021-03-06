@@ -45,8 +45,6 @@ const Head = () => (
     <link rel="apple-touch-startup-image" href="/icons/favicon/apple-splash-640-1136.jpg" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" />
     <link rel="apple-touch-startup-image" href="/icons/favicon/apple-splash-1136-640.jpg" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
   </NextHead>
 )
 

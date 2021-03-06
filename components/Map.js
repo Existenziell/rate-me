@@ -5,8 +5,7 @@ import useSwr from "swr";
 import config from '../app.config'
 import Image from 'next/image'
 import Link from 'next/link'
-
-const fetcher = (...args) => fetch(...args).then(response => response.json());
+import 'mapbox-gl/dist/mapbox-gl.css'
 
 const Map = () => {
   const [viewport, setViewport] = useState({
@@ -14,11 +13,12 @@ const Map = () => {
     longitude: -86.9,
     width: "100vw",
     height: "100vh",
-    zoom: 7
+    zoom: 8
   })
   const mapRef = useRef()
   const [selectedMarker, setSelectedMarker] = useState(null)
 
+  const fetcher = (...args) => fetch(...args).then(response => response.json());
   const { data, error } = useSwr('/api/business', { fetcher });
   const locations = data && !error ? data : [];
 
@@ -106,7 +106,7 @@ const Map = () => {
                     longitude,
                     zoom: expansionZoom,
                     transitionInterpolator: new FlyToInterpolator({
-                      speed: 2
+                      speed: 1
                     }),
                     transitionDuration: "auto"
                   });
