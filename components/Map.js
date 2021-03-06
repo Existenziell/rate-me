@@ -1,7 +1,7 @@
 import ReactMapGL, { Marker, Popup, FlyToInterpolator } from 'react-map-gl'
-import useSupercluster from "use-supercluster";
+import useSupercluster from "use-supercluster"
 import { useState, useEffect, useRef } from 'react'
-import useSwr from "swr";
+import useSwr from "swr"
 import config from '../app.config'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -18,9 +18,9 @@ const Map = () => {
   const mapRef = useRef()
   const [selectedMarker, setSelectedMarker] = useState(null)
 
-  const fetcher = (...args) => fetch(...args).then(response => response.json());
-  const { data, error } = useSwr('/api/business', { fetcher });
-  const locations = data && !error ? data : [];
+  const fetcher = (...args) => fetch(...args).then(response => response.json())
+  const { data, error } = useSwr('/api/business', { fetcher })
+  const locations = data && !error ? data : []
 
   // Clustering - https://github.com/leighhalliday/mapbox-clustering/blob/master/src/App.js
   const points = locations.map(point => ({
@@ -41,14 +41,14 @@ const Map = () => {
       .getBounds()
       .toArray()
       .flat()
-    : null;
+    : null
 
   const { clusters, supercluster } = useSupercluster({
     points,
     bounds,
     zoom: viewport.zoom,
     options: { radius: 75, maxZoom: 20 }
-  });
+  })
 
   // Close popup if ESC is hit
   useEffect(() => {
@@ -75,11 +75,11 @@ const Map = () => {
       ref={mapRef}
     >
       {clusters.map(cluster => {
-        const [longitude, latitude] = cluster.geometry.coordinates;
+        const [longitude, latitude] = cluster.geometry.coordinates
         const {
           cluster: isCluster,
           point_count: pointCount
-        } = cluster.properties;
+        } = cluster.properties
 
         if (isCluster) {
           return (
@@ -98,7 +98,7 @@ const Map = () => {
                   const expansionZoom = Math.min(
                     supercluster.getClusterExpansionZoom(cluster.id),
                     20
-                  );
+                  )
 
                   setViewport({
                     ...viewport,
@@ -109,13 +109,13 @@ const Map = () => {
                       speed: 1
                     }),
                     transitionDuration: "auto"
-                  });
+                  })
                 }}
               >
                 {pointCount}
               </div>
             </Marker>
-          );
+          )
         }
         return (
           <Marker
