@@ -107,3 +107,11 @@ select:-webkit-autofill:focus {
   box-shadow: none;
   cursor: not-allowed;
 }
+
+
+/* 
+* Override mapbox here
+*/
+.mapboxgl-popup-close-button {
+  padding: 8px 16px;
+}
