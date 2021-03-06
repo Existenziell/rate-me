@@ -14,11 +14,11 @@ const config = {
   // Local Dev
   development: {
     db: {
-      uri: process.env.NEXT_DEV_MONGODB_URI,
-      dbName: process.env.NEXT_DEV_MONGODB_DB,
+      uri: process.env.NEXT_MONGODB_URI,
+      dbName: process.env.NEXT_MONGODB_DB,
     },
     api: {
-      url: process.env.NEXT_DEV_API_URL,
+      url: process.env.NEXT_API_URL,
     },
     mail: { ...mailSettings },
     map: {
@@ -28,11 +28,11 @@ const config = {
   // Production 
   production: {
     db: {
-      uri: process.env.NEXT_PROD_MONGODB_URI,
-      dbName: process.env.NEXT_PROD_MONGODB_DB,
+      uri: process.env.NEXT_MONGODB_URI,
+      dbName: process.env.NEXT_MONGODB_DB,
     },
     api: {
-      url: process.env.NEXT_PROD_API_URL,
+      url: process.env.NEXT_API_URL,
     },
     mail: { ...mailSettings },
     map: {
@@ -42,11 +42,11 @@ const config = {
   // Local but with production DB settings
   devProd: {
     db: {
-      uri: process.env.NEXT_PROD_MONGODB_URI,
-      dbName: process.env.NEXT_PROD_MONGODB_DB,
+      uri: process.env.NEXT_MONGODB_URI,
+      dbName: process.env.NEXT_MONGODB_DB,
     },
     api: {
-      url: process.env.NEXT_DEV_API_URL,
+      url: process.env.NEXT_API_URL,
     },
     mail: { ...mailSettings },
     map: {
