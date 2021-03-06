@@ -1,9 +1,12 @@
-import ReactMapGL, { Marker, Popup } from 'react-map-gl'
-import { useState, useEffect } from 'react'
+import ReactMapGL, { Marker, Popup, FlyToInterpolator } from 'react-map-gl'
+import useSupercluster from "use-supercluster";
+import { useState, useEffect, useRef } from 'react'
+import useSwr from "swr";
 import config from '../app.config'
-import * as mapdata from '../lib/mapdata.json'
 import Image from 'next/image'
 import Link from 'next/link'
+
+const fetcher = (...args) => fetch(...args).then(response => response.json());
 
 const Map = () => {
   const [viewport, setViewport] = useState({
@@ -11,9 +14,41 @@ const Map = () => {
     longitude: -86.9,
     width: "100vw",
     height: "100vh",
-    zoom: 10
+    zoom: 7
   })
+  const mapRef = useRef()
   const [selectedMarker, setSelectedMarker] = useState(null)
+
+  const { data, error } = useSwr('/api/business', { fetcher });
+  const locations = data && !error ? data : [];
+
+  // Clustering - https://github.com/leighhalliday/mapbox-clustering/blob/master/src/App.js
+  const points = locations.map(point => ({
+    type: "Feature",
+    properties: { ...point.properties, cluster: false, id: point._id, category: point.category },
+    geometry: {
+      type: "Point",
+      coordinates: [
+        point.geometry.coordinates[0],
+        point.geometry.coordinates[1]
+      ]
+    }
+  }))
+
+  const bounds = mapRef.current
+    ? mapRef.current
+      .getMap()
+      .getBounds()
+      .toArray()
+      .flat()
+    : null;
+
+  const { clusters, supercluster } = useSupercluster({
+    points,
+    bounds,
+    zoom: viewport.zoom,
+    options: { radius: 75, maxZoom: 20 }
+  });
 
   // Close popup if ESC is hit
   useEffect(() => {
@@ -33,23 +68,66 @@ const Map = () => {
     <ReactMapGL
       {...viewport}
       mapboxApiAccessToken={config.map.accessToken}
-      mapStyle="mapbox://styles/mapbox/dark-v10"
+      // mapStyle="mapbox://styles/mapbox/dark-v10"
       // mapStyle="mapbox://styles/mapbox/satellite-v9"
       // mapStyle="mapbox://styles/mapbox/satellite-streets-v11"
       onViewportChange={(nextViewport) => setViewport(nextViewport)}
+      ref={mapRef}
     >
-      {mapdata.features.map(f => {
+      {clusters.map(cluster => {
+        const [longitude, latitude] = cluster.geometry.coordinates;
+        const {
+          cluster: isCluster,
+          point_count: pointCount
+        } = cluster.properties;
+
+        if (isCluster) {
+          return (
+            <Marker
+              key={`cluster-${cluster.id}`}
+              latitude={latitude}
+              longitude={longitude}
+            >
+              <div
+                className="text-white bg-brand rounded-full p-4 flex justify-center items-center z-10 cursor-pointer"
+                style={{
+                  width: `${10 + (pointCount / points.length) * 50}px`,
+                  height: `${10 + (pointCount / points.length) * 50}px`
+                }}
+                onClick={() => {
+                  const expansionZoom = Math.min(
+                    supercluster.getClusterExpansionZoom(cluster.id),
+                    20
+                  );
+
+                  setViewport({
+                    ...viewport,
+                    latitude,
+                    longitude,
+                    zoom: expansionZoom,
+                    transitionInterpolator: new FlyToInterpolator({
+                      speed: 2
+                    }),
+                    transitionDuration: "auto"
+                  });
+                }}
+              >
+                {pointCount}
+              </div>
+            </Marker>
+          );
+        }
         return (
           <Marker
-            key={f.id}
-            latitude={f.geometry.coordinates[1]}
-            longitude={f.geometry.coordinates[0]}
+            key={`crime-${cluster.properties.id}`}
+            latitude={cluster.geometry.coordinates[1]}
+            longitude={cluster.geometry.coordinates[0]}
           >
             <button
-              className="marker-btn"
+              className=""
               onClick={e => {
                 e.preventDefault()
-                setSelectedMarker(f)
+                setSelectedMarker(cluster)
               }}
             >
               <div className="w-8 h-8 text-brand">
