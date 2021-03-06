@@ -1,0 +1,50 @@
+/* --------------------------------------------------------
+Media Queries for rateMe App
+Mobile-first approach with min-width
+----------------------------------------------------------*/
+
+
+/* 
+* This applies from 768px onwards (iPads, Tablets) 
+* TailwindCSS corresponding prop perfix: 'md'
+*/
+@media (min-width: 768px) {
+  
+  html {
+    font-size: 16px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+}
+
+/* 
+* This applies from 1024px onwards (Small screens, laptops) 
+* TailwindCSS corresponding prop perfix: 'lg'
+*/
+@media (min-width: 1024px) {
+  
+  html {
+    font-size: 18px;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+  }
+}
+
+/* 
+* This applies from 1280px onwards (Desktops, large screens )
+* TailwindCSS corresponding prop perfix: 'xl'
+*/
+@media (min-width: 1280px) {
+  
+  html {
+    font-size: 20px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+}

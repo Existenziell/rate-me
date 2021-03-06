@@ -1,0 +1,109 @@
+/* --------------------------------------------------------
+Style Sheet for RateMe App
+
+version: 0.9
+last modified: 06.02.2021 by Christof Bauer
+author: Christof Bauer
+email: bauer.christof@gmail.com
+----------------------------------------------------------*/
+
+:root {
+  --color-brand: rgb(199, 21, 133); /* #C71585 */
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+html {
+  font-size: 16px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+*:focus {
+  outline: none !important;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+a:hover {
+  color: var(--color-brand);
+  transition: color 0.2s ease-in-out;
+}
+
+p > a {
+  border-bottom: 1px dotted var(--color-brand);
+}
+
+p > a:hover {
+  border-bottom: none;
+}
+
+/* Remove blue background on Chrome autocomplete */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
+  box-shadow: 0 0 0px 1000px #ffffff inset !important;
+}
+
+
+/* 
+* Button
+*/
+.button {
+  font-family: Lato, 'sans serif';
+  cursor: pointer;
+  border: 0;
+  outline: 0;
+  font-size: 1rem;
+  border-radius: 4px;
+  box-shadow: -5px -5px 20px white, 5px 5px 20px #333;
+  transition: all 0.2s ease-in-out;
+  padding: 10px 30px;
+  min-width: fit-content;
+  white-space: nowrap;
+  justify-content: center;
+}
+
+.button:hover {
+  box-shadow: -2px -2px 5px white, 2px 2px 5px #333;
+}
+
+.button:active {
+  box-shadow: inset 1px 1px 2px #333, inset -1px -1px 2px white;
+}
+
+.button.promo {
+  padding: 20px 30px;
+  font-size: 1.5rem;
+}
+
+.button svg {
+  height: 30px;
+  padding-right: 10px;
+}
+
+.button.primary {
+  background-color: var(--color-brand);
+  color: white;
+}
+
+.button.secondary {
+  background-color: white;
+  color: var(--color-brand);
+}
+
+.button.disabled {
+  box-shadow: none;
+  cursor: not-allowed;
+}

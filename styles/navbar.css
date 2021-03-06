@@ -1,0 +1,196 @@
+/* https://www.aleksandrhovhannisyan.com/blog/responsive-navbar-without-bootstrap/ */
+
+:root {
+  --color-brand: rgb(199, 21, 133); /* #C71585 */
+}
+
+.navbar-link.active {
+  color: var(--color-brand);
+}
+
+.home-link,
+.navbar-link,
+.navbar-link span,
+.navbar-link-fake {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  transition: color 0.2s ease-in-out;
+}
+
+.navbar-link:focus,
+.navbar-link:hover,
+.navbar-link-fake:hover {
+  color: var(--color-brand);
+}
+
+.account-icon svg {
+  width: 35px;
+}
+
+.account-icon span, .navbar-link-fake {
+  display: none;
+}
+
+.navbar-onChange {
+  display: none;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.icon-bar {
+  display: block;
+  width: 30px;
+  height: 3px;
+  margin: 2px;
+  transition: background-color 0.2s ease-in-out,
+              opacity 0.2s ease-in-out;
+  background-color: var(--color-brand);
+}
+
+.icon-bar:first-of-type {
+  width: 15px;
+  position: relative;
+  left: -8px;
+}
+
+.icon-bar:last-of-type {
+  width: 15px;
+  position: relative;
+  left: 8px;
+}
+
+.navbar-onChange:focus .icon-bar,
+.navbar-onChange:hover .icon-bar {
+  background-color: var(--color-brand);
+}
+
+#navbar {
+  opacity: 0.95;
+  height: 70px;
+}
+
+#navbar.opened {
+  opacity: 1;
+}
+
+#navbar.opened .navbar-onChange .icon-bar:first-child,
+#navbar.opened .navbar-onChange .icon-bar:last-child {
+  margin: 0;
+  width: 30px;
+}
+
+#navbar.opened .navbar-onChange .icon-bar:first-child {
+  transform: translate3d(10px, 5px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(45deg) skew(0deg, 0deg);
+  transform-style: preserve-3d;
+}
+
+#navbar.opened .navbar-onChange .icon-bar:nth-child(2) {
+  opacity: 0;
+}
+
+#navbar.opened .navbar-onChange .icon-bar:last-child {
+  transform: translate3d(-5px, -5px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(-45deg) skew(0deg, 0deg);
+  transform-style: preserve-3d;
+}
+
+.navbar-menu {
+  top: var(--navbar-height);
+  bottom: 0;
+  transition: opacity 0.2s ease-in-out,
+              visibility 0.2s ease-in-out;
+  opacity: 0;
+  visibility: hidden;
+  left: 0;
+  right: 0;
+}
+
+#navbar.opened .navbar-menu {
+  opacity: 1;
+  visibility: visible;
+}
+
+.navbar-links {
+  list-style-type: none;
+  max-height: 0;
+  overflow: hidden;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  left: 0;
+  right: 0;
+  margin: 1.4rem;
+  border-radius: 5px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+#navbar.opened .navbar-links {
+  padding: 1rem;
+  max-height: none;
+  background-color: white;
+  z-index: 99;
+  margin-top: 40px;
+}
+
+#navbar.opened .navbar-link {
+  display: block;
+  text-align: center;
+  padding: 10px;
+}
+
+/* Bigger screens */
+@media screen and (min-width: 768px) {
+  
+  .navbar-onChange {
+    display: none;
+  }
+  
+  #navbar {
+    height: auto;
+  }
+
+  #navbar svg {
+    width: auto;
+  }
+
+  #navbar .navbar-menu,
+  #navbar.opened .navbar-menu {
+    visibility: visible;
+    opacity: 1;
+    display: block;
+    height: 100%;
+  }
+
+  #navbar .navbar-links,
+  #navbar.opened .navbar-links {
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    position: static;
+    flex-direction: row;
+    list-style-type: none;
+    max-height: max-content;
+    width: 90%;
+    height: 100%;
+  }
+
+  .account-icon svg {
+    display: none;
+  }
+  .account-icon span, .navbar-link-fake {
+    display: block;
+  }
+
+  .navbar-link {
+    margin-right: 20px;
+  }
+}
