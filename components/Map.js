@@ -67,6 +67,8 @@ const Map = () => {
         <Popup
           latitude={selectedMarker.geometry.coordinates[1]}
           longitude={selectedMarker.geometry.coordinates[0]}
+          offsetLeft={16}
+          offsetTop={13}
           onClose={() => {
             setSelectedMarker(null)
           }}
@@ -86,7 +88,7 @@ const Map = () => {
                 />
               </div>
             </div>
-            <div className="text-sm">
+            <div className="text-sm bg-gray-100 p-4 rounded">
               <p className="mb-2"><Link href={selectedMarker.properties.website}><a>Website</a></Link></p>
               <p className="mb-2"><a href={selectedMarker.properties.phone}>Call {selectedMarker.properties.name}</a></p>
               <p className="mb-2">Adress: {selectedMarker.properties.address}</p>

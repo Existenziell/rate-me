@@ -12,11 +12,11 @@ export default function Home() {
       <Main title='RateMe' titleSuffix={false}>
         <div className="bg-cozumel bg-cover bg-center flex flex-col items-center justify-center px-6 h-full">
 
-          <h1 className="text-center sm:w-1/3 md:w-2/5 text-brand">
+          <h1 className="text-center sm:w-1/3 md:w-2/5 text-brand p-4 bg-opacity-80 bg-black rounded-sm">
             A fresh approach to customer care.
           </h1>
 
-          <h2 className="mt-8 mb-16 text-center w-2/3 md:w-2/5 p-4 bg-opacity-60 bg-white">
+          <h2 className="mt-8 mb-16 text-center w-2/3 md:w-2/5 p-4 bg-opacity-80 bg-white rounded-sm">
             More transparency through real ratings. Perks &amp; Rewards for good customers!
           </h2>
 
