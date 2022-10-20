@@ -12,7 +12,7 @@ export default function Home() {
       <Main title='RateMe' titleSuffix={false}>
         <div className="bg-cozumel bg-cover bg-center flex flex-col items-center justify-center px-6 h-full">
 
-          <h1 className="text-center sm:w-1/3 md:w-2/5 text-brand p-4 bg-opacity-80 bg-black rounded-sm">
+          <h1 className="text-center sm:w-1/3 md:w-2/5 text-brand p-4 bg-opacity-60 bg-black rounded-sm">
             A fresh approach to customer care.
           </h1>
 
@@ -29,7 +29,7 @@ export default function Home() {
             </motion.a>
           </Link>
 
-          <Link href="/apply">
+          <Link href="/ratings">
             <motion.a
               initial={{ x: 100, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}

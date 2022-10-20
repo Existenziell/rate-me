@@ -6,7 +6,7 @@ import Link from 'next/link'
 // import Toggle from './form/Toggle'
 
 export default function Navigation() {
-  let links = ['Explore', 'Reviews', 'Contact', 'Help']
+  let links = ['Explore', 'Ratings', 'Contact', 'Help']
   const router = useRouter()
   const [session, loading] = useSession()
 
